@@ -46,6 +46,16 @@ app.post('/postData', async (req, res) => {
   }
 })
 
+app.delete('/deleteData', async (req, res) => {
+  let { id } = req.body
+  try {
+    let data = await sequelize.query(`delete from logistics where id=${id}`, { type: QueryTypes.SELECT })
+    res.send(data)
+  } catch (e) {
+    res.send(e)
+  }
+})
+
 
 
 app.listen(process.env.PORT || 3000)
