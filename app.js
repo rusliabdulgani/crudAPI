@@ -59,7 +59,7 @@ app.delete('/deleteData', async (req, res) => {
 app.put('/updateData', async (req, res) => {
   let { no_container, size, type, slot, row, tier, id } = req.body
   try {
-    let data = await sequelize.query(`update logistics set no_container = ${no_container}, size = ${size}, type = ${type}, slot = ${slot}, row = ${row}, tier = ${tier} where id=${id}`, { type: QueryTypes.SELECT })
+    let data = await sequelize.query(`update logistics set no_container = '${no_container}', size = ${size}, type = '${type}', slot = ${slot}, row = ${row}, tier = ${tier} where id=${id}`, { type: QueryTypes.SELECT })
     res.send(data)
   } catch (e) {
     res.send(e)
