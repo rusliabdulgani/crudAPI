@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 
 app.get('/getData', async (req, res) => {
   try {
-    let data = sequelize.query('select * from logistics', { type: QueryTypes.SELECT })
+    let data = await sequelize.query('select * from logistics', { type: QueryTypes.SELECT })
     res.send(data)
   } catch (e) {
     res.send(e)
