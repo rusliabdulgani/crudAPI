@@ -14,6 +14,8 @@ sequelize.authenticate()
   console.log('Unable to connect to database: ', err)
 })
 
+
+
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.text())
@@ -22,8 +24,28 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static('share'));
 
 app.get('/', (req, res) => {
-  
   res.send('jancuk!!')
 })
+
+app.get('/getData', async (req, res) => {
+  try {
+    let data = sequelize.query('select * from logistics', { type: QueryTypes.SELECT })
+    res.send(data)
+  } catch (e) {
+    res.send(e)
+  }
+})
+
+app.post('/postData', async (req, res) => {
+  let { no_container, size, type, slot, row, tier, created_on } = req.body;
+  try {
+    let data = sequelize.query(`insert into logistics (no_container, size, type, slot, row, tier, created_on) values (${no_container}, ${size}, ${type}, ${slot}, ${row}, ${tier}, ${created_on})`, { type: QueryTypes.SELECT })
+    res.send(data)
+  } catch (e) {
+    res.send(e)
+  }
+})
+
+
 
 app.listen(process.env.PORT || 3000)
