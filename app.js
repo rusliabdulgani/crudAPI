@@ -39,7 +39,7 @@ app.get('/getData', async (req, res) => {
 app.post('/postData', async (req, res) => {
   let { no_container, size, type, slot, row, tier, created_on } = req.body;
   try {
-    let data = sequelize.query(`insert into logistics (no_container, size, type, slot, row, tier, created_on) values (${no_container}, ${size}, ${type}, ${slot}, ${row}, ${tier}, ${created_on})`, { type: QueryTypes.SELECT })
+    let data = await sequelize.query(`insert into logistics (no_container, size, type, slot, row, tier, created_on) values (${no_container}, ${size}, ${type}, ${slot}, ${row}, ${tier}, ${created_on})`, { type: QueryTypes.SELECT })
     res.send(data)
   } catch (e) {
     res.send(e)
